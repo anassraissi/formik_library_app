@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import {Formik , Field, yupToFormErrors, ErrorMessage,FieldArray} from "formik";
 import * as yup from 'yup';
-// import './styles.css';  // use style just in this component;
+import './styles.css';  // use style just in this component;
 //baked-in support for schema-based form-level validation through Yup. 
 
 class App extends Component {
-  
+  state={
+      className:'brown'
+  }
   onSubmit = (values) => {
     console.log(values);
   }
@@ -111,8 +113,23 @@ class App extends Component {
   }
 
   render() {
+    const className='green';
     return (
       <div className="App">
+        
+        <div className='red'>
+                test color
+        </div>
+        <div className={className}>
+          test color by a variable const bind 
+        </div>
+        <br></br>
+        <div className={this.state.className}>
+             text color by using state <br></br>
+             <button onClick={()=>{this.setState({className:'red'})}}> turn to red</button> <br></br>
+             <button  onClick={()=>{this.setState({className:'green'})}}> turn to green</button>
+        </div>
+      
         <Formik 
           initialValues={{name: "",
           email:"",
