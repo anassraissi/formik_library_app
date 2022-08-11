@@ -50,13 +50,35 @@ class App extends Component {
 
                     {props.values.friends.map((item,index)=>(
                       <div key={index}>
-                      <Field name={`friends.${index}`} />
+                      <Field name={`friends.${index}`} /> 
                       <button type='button' onClick={()=>arrayHelper.remove(index)}> - </button>
                       <ErrorMessage name={`friends.${index}`}/> <br/>
                       </div>
 
                       ))}
                         <button type='button'  onClick={()=>arrayHelper.push('')}>Add</button>
+                      </div>
+                    
+              )} 
+      />
+        <FieldArray
+              name='phoneNumber'
+              render={arrayHelper=>(
+                    <div>
+
+                    {props.values.phoneNumber.map((item,index)=>(
+                      <div key={index}>
+                      <Field name={`phoneNumber.${index}.number`} placeholder='Number' /> 
+                      <button type='button' onClick={()=>arrayHelper.remove(index)}> - </button>
+                      <ErrorMessage name={`phoneNumber.${index}.number`}/> <br/>
+
+                      <Field name={`phoneNumber.${index}.extension`} placeholder='Extension' /> 
+                      <button type='button' onClick={()=>arrayHelper.remove(index)}> - </button>
+                      <ErrorMessage name={`phoneNumber.${index}.extension`}/> <br/>
+                      </div>
+
+                      ))}
+                        <button type='button'  onClick={()=>arrayHelper.push({number:'',extension:''})}>Add</button>
                       </div>
                     
               )} 
@@ -75,8 +97,14 @@ class App extends Component {
                 twitter:yup.string().required('Twitter is a required field'),
               }),
               friends:yup.array().of(
-                yup.string().required('friend field Required ')
-            )
+                yup.string().required('friend field Required')
+            ),
+            phoneNumber:yup.array().of(
+              yup.object().shape({
+                number:yup.string().required('number a required field'),
+                extension:yup.string().required('extension a required field')
+              }),
+          ),
         });
         return schema;  // return response
   }
@@ -93,7 +121,17 @@ class App extends Component {
           social:{
               facebook:'',twitter:''
           },
-          friends:['Raissi anass','Imam']
+          friends:['Raissi anass','Imam'],
+          phoneNumber:[
+            {
+              number:'0633110420',
+              extension:'212'
+            },
+            {
+              number:'06221232123',
+              extension:'212'
+            }
+          ]
               
         }} // by default  is false 
           onSubmit={this.onSubmit}  //katl3ab 3la li fo9mminha
